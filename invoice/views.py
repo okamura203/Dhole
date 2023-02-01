@@ -129,15 +129,15 @@ class InvoiceFilterView(PaginationMixin, FilterView):
         return super().get(request, **kwargs)
 
 
-class InvoiceDetailView(DetailView):
+class InvoiceDetailView(LoginRequiredMixin,DetailView):
     model = Invoice
 
-class InvoiceDetailView2(DetailView):
+class InvoiceDetailView2(LoginRequiredMixin,DetailView):
     template_name = 'invoice/invoice_detail2.html'
     model = Invoice
 
 
-class InvoiceCreateView(InvoiceMixin, FormsetMixin, CreateView):
+class InvoiceCreateView(LoginRequiredMixin,InvoiceMixin, FormsetMixin, CreateView):
     template_name = 'invoice/invoice_form.html'
     model = Invoice
     form_class = InvoiceForm
@@ -150,14 +150,14 @@ class InvoiceCreateView2(InvoiceMixin, FormsetMixin, CreateView):
     formset_class = InvoiceDetailFormSet
 
 
-class InvoiceUpdateView(InvoiceMixin, FormsetMixin, UpdateView):
+class InvoiceUpdateView(LoginRequiredMixin,InvoiceMixin, FormsetMixin, UpdateView):
     is_update_view = True
     template_name = 'invoice/invoice_add.html'
     model = Invoice
     form_class = InvoiceForm
     formset_class = InvoiceDetailFormSet
     
-class InvoiceUpdateView2(InvoiceMixin, FormsetMixin, UpdateView):
+class InvoiceUpdateView2(LoginRequiredMixin,InvoiceMixin, FormsetMixin, UpdateView):
     is_update_view = True
     template_name = 'invoice/invoice_form2.html'
     model = Invoice
@@ -165,7 +165,7 @@ class InvoiceUpdateView2(InvoiceMixin, FormsetMixin, UpdateView):
     formset_class = InvoiceDetailFormSet
 
 
-class InvoiceDeleteView(DeleteView):
+class InvoiceDeleteView(LoginRequiredMixin,DeleteView):
     model = Invoice
     success_url = reverse_lazy('index')
 

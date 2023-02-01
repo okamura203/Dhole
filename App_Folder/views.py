@@ -7,6 +7,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from invoice import views
+from invoice import models
 
 #ログイン
 def Login(request):
@@ -45,6 +47,16 @@ def Logout(request):
     # ログイン画面遷移
     return HttpResponseRedirect(reverse('Login'))
 
+#admin画面に遷移
+def admin(request):
+    return render(request, 'admin/stock/stock', {})
+
+#注文画面に遷移
+def create(request):
+    return render(request, 'invoice/invoice_form.html', {})
+
+def itiran(request):
+    return render(request, 'invoice/invoice_filter.html', {})
 
 #ホーム
 @login_required
