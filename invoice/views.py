@@ -142,7 +142,10 @@ class InvoiceCreateView(LoginRequiredMixin,InvoiceMixin, FormsetMixin, CreateVie
     model = Invoice
     form_class = InvoiceForm
     formset_class = InvoiceDetailFormSet
-    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['table'] = self.kwargs.get('table')
+        return context
 class InvoiceCreateView2(InvoiceMixin, FormsetMixin, CreateView):
     template_name = 'invoice/invoice_form2.html'
     model = Invoice
@@ -156,7 +159,7 @@ class InvoiceUpdateView(LoginRequiredMixin,InvoiceMixin, FormsetMixin, UpdateVie
     model = Invoice
     form_class = InvoiceForm
     formset_class = InvoiceDetailFormSet
-    
+
 class InvoiceUpdateView2(LoginRequiredMixin,InvoiceMixin, FormsetMixin, UpdateView):
     is_update_view = True
     template_name = 'invoice/invoice_form2.html'

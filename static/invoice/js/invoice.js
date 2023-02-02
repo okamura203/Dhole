@@ -9,13 +9,7 @@ $('.save').on('click', function (e) {
     $('#myform').submit();
 });
 
-// [検索を解除] の表示制御
-conditions = $('#filter').serializeArray();
-$.each(conditions, function () {
-    if (this.value) {
-        $('.filtered').css('visibility', 'visible')
-    }
-});
+
 
 //ブラウザバック禁止
 history.pushState(null, null, location.href);

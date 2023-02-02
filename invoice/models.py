@@ -30,7 +30,7 @@ class Item(models.Model):
 
 class Invoice(models.Model):
     customer = models.CharField(
-        verbose_name='顧客名',
+        verbose_name='卓番',
         max_length=100,
     )
 
