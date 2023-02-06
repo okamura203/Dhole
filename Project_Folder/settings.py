@@ -14,16 +14,16 @@ from pathlib import Path
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Tepmpateフォルダへの絶対パスを定義
-TEMPLATE_DIR = BASE_DIR / "Template"
+TEMPLATE_DIR = os.path.join(BASE_DIR,"Template")
 
 # staticフォルダへの絶対パスを定義
-STATIC_DIR = BASE_DIR / "static"
+STATIC_DIR = os.path.join(BASE_DIR,"static")
 
 # メディアフォルダへの絶対パスを定義
-MEDIA_DIR = BASE_DIR / "media"
+MEDIA_DIR = os.path.join(BASE_DIR,"media")
 
 
 # Quick-start development settings - unsuitable for production
@@ -35,7 +35,7 @@ SECRET_KEY = "django-insecure-offq97^uru^1mml2y^6ze6ase@71j(ths$tv+3lbq^fsis5!y#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['10.16.73.27','10.16.52.64']
 
 
 # Application definition

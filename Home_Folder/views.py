@@ -61,8 +61,8 @@ class createQrView(TemplateView):
             except QrUrl.DoesNotExist:
                 return False
             table = QrUrl.objects.values_list('tableNumber',flat=True).get(pk=idf)
-            img = qrcode.make("http://127.0.0.1:8000/create/"+str(table)+"/")
-            url = "http://127.0.0.1:8000/create/"+str(table)+"/"
+            img = qrcode.make("http://10.16.73.27:5454/create/"+str(table)+"/")
+            url = "http://10.16.73.27:5454/create/"+str(table)+"/"
             buffer = BytesIO()
             img.save(buffer, format="PNG")
             qr = base64.b64encode(buffer.getvalue()).decode().replace("'", "")

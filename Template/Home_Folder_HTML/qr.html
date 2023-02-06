@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+{% extends "App_Folder_HTML/base.html" %}
+{% load static %}
+{% block content %}<!DOCTYPE html>
 <html lang="ja" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -13,10 +15,12 @@
     <form action="{% url 'qr' %}" method="POST">
       {{ form.as_p }}
       {% csrf_token %}
-      <input type="submit" value="登録">
+      <input type="submit" value="登録" class="button5">
     </form>
 
     <a href="{% url 'createQr' %}">QRコード生成</a>
     <a href="{% url 'home' %}">ホーム画面</a>
   </body>
 </html>
+
+{% endblock %}

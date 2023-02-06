@@ -1,3 +1,5 @@
+{% extends "App_Folder_HTML/base.html" %}
+{% load static %}
 {% block content %}
 <form method="post">{% csrf_token %}
     <p>削除しますと復旧ができません。よろしいですか？</p>

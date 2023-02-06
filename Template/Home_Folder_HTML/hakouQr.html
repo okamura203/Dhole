@@ -1,2 +1,6 @@
+{% extends "App_Folder_HTML/base.html" %}
+{% load static %}
+{% block content %}
 <img src="data:image/png;base64,{{ qr }}"/>
 <p>{{ url }}</p>
+{% endblock %}

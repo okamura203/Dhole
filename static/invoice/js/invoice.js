@@ -22,3 +22,5 @@ $(window).on("popstate", function (event) {
     window.alert('ブラウザバックできません。ブラウザを閉じてください');
 });
 
+
+

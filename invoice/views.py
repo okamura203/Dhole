@@ -103,7 +103,46 @@ class InvoiceMixin(object): #新規登録・更新処理
             formset.save()
 
         # 処理後は詳細ページを表示
-        return redirect(invoice.get_absolute_url())
+        return redirect('detail',pk=invoice.pk)
+
+class InvoiceMixin2(object): #新規登録・更新処理
+    def form_valid(self, form, formset):
+
+        # formset.saveでインスタンスを取得できるように、既存データに変更が無くても更新対象となるようにする
+        for detail_form in formset.forms:
+            if detail_form.cleaned_data:
+                detail_form.has_changed = lambda: True
+
+        # インスタンスの取得
+        invoice = form.save(commit=False)
+        formset.instance = invoice
+        details = formset.save(commit=False)
+
+        sub_total = 0
+
+        # 明細に単価と合計を設定
+        for detail in details:
+            detail.unit_price = detail.item.unit_price
+            detail.amount = detail.unit_price * detail.quantity
+            sub_total += detail.amount
+
+        # 見出しに小計、消費税、合計、担当者を設定
+        tax = round(sub_total * 0.08)
+        total_amount = sub_total + tax
+
+        invoice.sub_total = sub_total
+        invoice.tax = tax
+        invoice.total_amount = total_amount
+        invoice.created_by = self.request.user
+
+        # DB更新
+        with transaction.atomic():
+            invoice.save()
+            formset.instance = invoice
+            formset.save()
+
+        # 処理後は詳細ページを表示
+        return redirect('detail2',pk=invoice.pk)
 
 
 class InvoiceFilterView(PaginationMixin, FilterView):
@@ -129,19 +168,24 @@ class InvoiceFilterView(PaginationMixin, FilterView):
         return super().get(request, **kwargs)
 
 
-class InvoiceDetailView(LoginRequiredMixin,DetailView):
+class InvoiceDetailView(DetailView):
+    template_name = 'invoice/invoice_detail.html'
     model = Invoice
 
-class InvoiceDetailView2(LoginRequiredMixin,DetailView):
+class InvoiceDetailView2(DetailView):
     template_name = 'invoice/invoice_detail2.html'
     model = Invoice
 
 
-class InvoiceCreateView(LoginRequiredMixin,InvoiceMixin, FormsetMixin, CreateView):
+class InvoiceCreateView(InvoiceMixin, FormsetMixin, CreateView):
     template_name = 'invoice/invoice_form.html'
     model = Invoice
     form_class = InvoiceForm
     formset_class = InvoiceDetailFormSet
+    def get_initial(self, **kwargs):
+        initial = super().get_initial(**kwargs)
+        initial["customer"] = self.kwargs.get('table')
+        return initial
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['table'] = self.kwargs.get('table')
@@ -153,14 +197,14 @@ class InvoiceCreateView2(InvoiceMixin, FormsetMixin, CreateView):
     formset_class = InvoiceDetailFormSet
 
 
-class InvoiceUpdateView(LoginRequiredMixin,InvoiceMixin, FormsetMixin, UpdateView):
+class InvoiceUpdateView(InvoiceMixin, FormsetMixin, UpdateView):
     is_update_view = True
     template_name = 'invoice/invoice_add.html'
     model = Invoice
     form_class = InvoiceForm
     formset_class = InvoiceDetailFormSet
 
-class InvoiceUpdateView2(LoginRequiredMixin,InvoiceMixin, FormsetMixin, UpdateView):
+class InvoiceUpdateView2(InvoiceMixin2, FormsetMixin, UpdateView):
     is_update_view = True
     template_name = 'invoice/invoice_form2.html'
     model = Invoice
@@ -172,5 +216,9 @@ class InvoiceDeleteView(LoginRequiredMixin,DeleteView):
     model = Invoice
     success_url = reverse_lazy('index')
 
-def invoiceK(request):
-    return render(request,'invoice/invoice_kaikei.html')
+def invoiceK(request,pk):
+    template_name = "invoice/invoice_kaikei.html"
+    ctx = {}
+    q = Invoice.objects.get(pk=pk)
+    ctx["object2"] = q
+    return render(request, template_name, ctx)

@@ -5,11 +5,11 @@ from django.urls import reverse
 
 
 
-CATEGORY = (('meet','肉'),('vegetable','野菜'),('alcohol','お酒'),('other','その他'))
+'''CATEGORY = (('meet','肉'),('vegetable','野菜'),('alcohol','お酒'),('other','その他'))'''
 # Create your models here.
 class stock(models.Model):
     
-    category = models.CharField('カテゴリー名', max_length=100, choices = CATEGORY)
+    category = models.CharField('カテゴリー名', max_length=100, null=True, blank=True)
     item_name = models.CharField('商品名',max_length=100, null=True, blank=True)
     inventory = models.PositiveIntegerField('在庫数', null=True, blank=True)
 

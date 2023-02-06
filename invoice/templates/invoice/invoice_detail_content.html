@@ -9,7 +9,7 @@
 </div>
 <div class="row">
     <div class="col-3">
-        <p>登録日</p>
+        <p>来店日時</p>
     </div>
     <div class="col-9">
         <p>{{ invoice.created_at|date:"Y/m/d G:i:s" }}</p>
@@ -17,10 +17,10 @@
 </div>
 <div class="row">
     <div class="col-3">
-        <p>担当者</p>
+        <p>登録日</p>
     </div>
     <div class="col-9">
-        <p>{{ invoice.created_by.get_full_name }}</p>
+        <p>{{ invoice.created_bt|date:"Y/m/d G:i:s" }}</p>
     </div>
 </div>
 <div class="row">

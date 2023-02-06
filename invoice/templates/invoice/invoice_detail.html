@@ -1,4 +1,4 @@
-{% extends "./_base.html" %}
+{% extends "./_base2.html" %}
 {% block content %}
     <div class="container">
         <div class="row">
@@ -30,7 +30,7 @@
             // 「OK」時の処理開始 ＋ 確認ダイアログの表示
             if(window.confirm('本当に会計されますか？')){
         
-                location.href ="{% url 'invoice_kaikei' %}"; // example_confirm.html へジャンプ
+                location.href ="{% url 'invoice_kaikei' invoice.pk %}"; // example_confirm.html へジャンプ
         
             }
             // 「OK」時の処理終了

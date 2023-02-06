@@ -13,7 +13,7 @@ urlpatterns = [
     path('update/<int:pk>/', views.InvoiceUpdateView.as_view(), name='update'),
     path('update2/<int:pk>/', views.InvoiceUpdateView2.as_view(), name='update2'),
     path('delete/<int:pk>/', views.InvoiceDeleteView.as_view(), name='delete'),
-    path('invoice_kaikei',views.invoiceK,name="invoice_kaikei"),
+    path('invoice_kaikei/<int:pk>/',views.invoiceK,name="invoice_kaikei"),
 ]
 
 ## クラスベースビューの場合

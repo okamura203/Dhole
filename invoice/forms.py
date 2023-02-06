@@ -10,6 +10,9 @@ class InvoiceForm(forms.ModelForm):
         model = Invoice
         fields = ('customer',)
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
 
 class InvoiceDetailForm(forms.ModelForm):
     class Meta:

@@ -7,8 +7,8 @@
  <div class = "b">
   <p></p>
   <a href="{% url 'index' %}" ><button class="btn">注文管理</button></a>
-  <a href="{% url 'admin' %}" ><button class="btn">メニュー画面</button></a>
-  <a href="{% url 'admin' %}" ><button class="btn">在庫管理</button></a>
+  <a href="{% url 'admin:invoice_item_changelist' %}" ><button class="btn">メニュー画面</button></a>
+  <a href="{% url 'admin:stock_stock_changelist' %}"><button class="btn">在庫管理</button></a>
 <p>
   <a href="{% url 'qr' %}"><button class="btn">QR発行</button></a>
   <a href="{% url 'qritiran' %}"><button class="btn">QR一覧</button></a>

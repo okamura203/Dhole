@@ -1,13 +1,20 @@
-{% extends "./_base.html" %}
-{% load static %}
-{% load bootstrap4 %}
-{% block content %}
+
+
 <html>
-    <body>
-        <script src="{% static 'js/invoice.js' %}"></script>
-        {# Load CSS and JavaScript #}
-        お会計ありがとうございました。
-        レジへ進みください
-    </body>
+    <center>
+        {% load static %}
+        {% load bootstrap4 %}
+        {% block content %}
+
+        <h2>
+            <script src="{% static 'js/invoice.js' %}"></script>
+            {# Load CSS and JavaScript #}
+            お会計ありがとうございました。
+            レジへ進みください
+            <p>こちらを店員にお見せください</p>
+        </h2>
+        <p><font size=7>卓番{{object2.customer}}</font></p>
+
+        {% endblock %}
+    </center>
 </html>
-{% endblock %}
